@@ -24,8 +24,9 @@ public class Agendamento implements CrudDomain<Long>, Serializable{
     private Long id;
     private Long pacienteId;
     private Long exameId;
+    private Long aplicadorId;
     private LocalDateTime dataExame;
     private LocalDateTime dataRetirada;
-    private boolean status;
+    private String status;
 
 }

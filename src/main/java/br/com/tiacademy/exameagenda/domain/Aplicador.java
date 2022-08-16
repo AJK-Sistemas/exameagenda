@@ -22,7 +22,9 @@ public class Aplicador implements CrudDomain<Long>, Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String sobrenome;
+    private String cpf;
+    private String telefone;
+    private String email;
     private String especialidade;
 
 }

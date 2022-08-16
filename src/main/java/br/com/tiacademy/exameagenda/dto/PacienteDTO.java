@@ -11,5 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class PacienteDTO implements Serializable{
     private Long id;
-	private String nome;
+    private String nome;
+    private String cpf;
+    private String telefone;
+    private String email;
 }

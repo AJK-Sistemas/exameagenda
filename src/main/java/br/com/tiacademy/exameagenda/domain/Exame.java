@@ -16,14 +16,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Exame implements CrudDomain<Long>, Serializable{
-    
+public class Exame implements CrudDomain<Long>, Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String tipo;
     private String descricao;
+    private int duracao;
     private int disponibilidade;
-    private String especialidade;
+    private double valor;
 
 }
