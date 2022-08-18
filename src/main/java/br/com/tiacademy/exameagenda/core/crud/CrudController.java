@@ -52,7 +52,7 @@ public abstract class CrudController<T extends CrudDomain<ID>, D, ID> {
     }
 
     @PostMapping
-    public ResponseEntity<D> create(@RequestBody D dto) {
+    public ResponseEntity<T> create(@RequestBody D dto) {
 
         var entidade = converter.dtoParaEntidade(dto);
 
@@ -62,7 +62,7 @@ public abstract class CrudController<T extends CrudDomain<ID>, D, ID> {
 
         var uri = buider.path("/{id}").buildAndExpand(salvo.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(converter.entidadeParaDto(salvo));
+        return ResponseEntity.created(uri).body(salvo);
     }
 
     @PutMapping("/{id}")
