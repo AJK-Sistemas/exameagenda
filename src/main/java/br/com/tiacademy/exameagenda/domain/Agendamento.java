@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import br.com.tiacademy.exameagenda.core.crud.CrudDomain;
 import lombok.AllArgsConstructor;
@@ -22,11 +23,17 @@ public class Agendamento implements CrudDomain<Long>, Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long pacienteId;
-    private Long exameId;
-    private Long aplicadorId;
     private LocalDateTime dataExame;
     private LocalDateTime dataRetirada;
     private String status;
+
+    @ManyToOne
+    private Paciente paciente;
+
+    @ManyToOne
+    private Exame exame;
+
+    @ManyToOne
+    private Aplicador aplicador;
 
 }

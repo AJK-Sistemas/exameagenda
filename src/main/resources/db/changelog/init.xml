@@ -58,37 +58,6 @@
 	</changeSet>
 
 	<changeSet id="3" author="AJK-Sistemas">
-		<preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela agendamento">
-			<not>
-				<tableExists tableName="agendamento" />
-			</not>
-		</preConditions>
-		<createTable tableName="agendamento">
-			<column name="id" type="int">
-				<constraints nullable="false" primaryKey="true" primaryKeyName="pk_agendamento" />
-			</column>
-			<column name="pacienteid" type="int">
-				<constraints nullable="false" />
-			</column>
-			<column name="aplicadorid" type="int">
-				<constraints nullable="false" />
-			</column>
-			<column name="exameid" type="int">
-				<constraints nullable="false" />
-			</column>
-			<column name="dataexame" type="date">
-				<constraints nullable="false" />
-			</column>
-			<column name="dataretirada" type="date">
-				<constraints nullable="false" />
-			</column>
-			<column name="status" type="varchar(15)">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
-		<addAutoIncrement tableName="agendamento" columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
-	</changeSet>
-	<changeSet id="4" author="AJK-Sistemas">
 		<preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela exame">
 			<not>
 				<tableExists tableName="exame" />
@@ -105,7 +74,7 @@
 				<constraints nullable="false" />
 			</column>
 			<column name="duracao" type="int">
-				<constraints nullable="false"/>
+				<constraints nullable="false" />
 			</column>
 			<column name="disponibilidade" type="int">
 				<constraints nullable="false" />
@@ -115,5 +84,36 @@
 			</column>
 		</createTable>
 		<addAutoIncrement tableName="exame" columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
+	</changeSet>
+	<changeSet id="4" author="AJK-Sistemas">
+		<preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela agendamento">
+			<not>
+				<tableExists tableName="agendamento" />
+			</not>
+		</preConditions>
+		<createTable tableName="agendamento">
+			<column name="id" type="int">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="pk_agendamento" />
+			</column>
+			<column name="pacienteid" type="int">
+				<constraints foreignKeyName="fk_paciente" referencedTableName="paciente" referencedColumnNames="id" nullable="false" />
+			</column>
+			<column name="aplicadorid" type="int">
+				<constraints foreignKeyName="fk_aplicador" referencedTableName="aplicador" referencedColumnNames="id" nullable="false" />
+			</column>
+			<column name="exameid" type="int">
+				<constraints foreignKeyName="fk_exame" referencedTableName="exame" referencedColumnNames="id" nullable="false" />
+			</column>
+			<column name="dataexame" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="dataretirada" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="status" type="varchar(15)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addAutoIncrement tableName="agendamento" columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
 	</changeSet>
 </databaseChangeLog>
