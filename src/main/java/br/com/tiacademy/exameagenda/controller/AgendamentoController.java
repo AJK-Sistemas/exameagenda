@@ -14,6 +14,7 @@ import br.com.tiacademy.exameagenda.dto.AgendamentoDTO;
 @RestController
 @RequestMapping("/agendamento")
 public class AgendamentoController extends CrudController<Agendamento, AgendamentoDTO, Long>{
+
     @PostMapping("/objeto")
     public ResponseEntity<Agendamento> create(@RequestBody Agendamento entidade) {
 

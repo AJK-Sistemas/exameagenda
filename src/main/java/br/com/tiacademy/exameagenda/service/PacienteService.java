@@ -12,4 +12,8 @@ public class PacienteService extends CrudService<Paciente, Long>{
 		recuperado.setNome(entidade.getNome());
 		return recuperado;
 	}
+
+	public Boolean exist(Long id){
+		return repository.existsById(id);
+	}
 }
