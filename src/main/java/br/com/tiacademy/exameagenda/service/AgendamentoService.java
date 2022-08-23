@@ -17,8 +17,8 @@ import br.com.tiacademy.exameagenda.dto.AgendaHorasDTO;
 import br.com.tiacademy.exameagenda.repository.AgendamentoRepository;
 
 @Service
-public class AgendamentoService extends CrudService<Agendamento, Long>{
-    @Override
+public class AgendamentoService extends CrudService<Agendamento, Long> {
+	@Override
 	protected Agendamento editarEntidade(Agendamento recuperado, Agendamento entidade) {
 		recuperado.setDataExame(entidade.getDataExame());
 		recuperado.setDataRetirada(entidade.getDataRetirada());
@@ -36,19 +36,17 @@ public class AgendamentoService extends CrudService<Agendamento, Long>{
 	protected AgendamentoRepository agendaRepository;
 
 	@Override
-	public Agendamento criar(Agendamento entidade){
-		if (entidade.getPaciente().getId() == null){
-            Paciente salvoPaciente = pacienteService.criar(entidade.getPaciente());
-            entidade.setPaciente(salvoPaciente);
-        }
+	public Agendamento criar(Agendamento entidade) {
+		if (entidade.getPaciente().getId() == null) {
+			Paciente salvoPaciente = pacienteService.criar(entidade.getPaciente());
+			entidade.setPaciente(salvoPaciente);
+		}
 		return repository.save(entidade);
 	}
 
-	public List<String> geraHoras(Long id) {
+	public List<String> geraHoras(Long id, String data) {
 		List<String> horas = new ArrayList<>();
-		List<AgendaHorasDTO> horasAgendadas = agendaRepository.porDataExame("2022-08-20");
-		// List<String> horas1 =
-		// horasAgendadas.stream().map(Object::toString).collect(Collectors.toList());
+		List<AgendaHorasDTO> horasAgendadas = agendaRepository.porDataExame(data);
 
 		Exame exame = exameService.porId(id);
 		if (exame == null)
@@ -57,8 +55,10 @@ public class AgendamentoService extends CrudService<Agendamento, Long>{
 		LocalTime horaFim = LocalTime.parse(exame.getHora_fim());
 		LocalTime intervalo = LocalTime.parse(exame.getDuracao());
 		Long disponibilidade = exame.getDisponibilidade();
-		horas.add(horaInicio.format(DateTimeFormatter.ofPattern("HH:mm")));
 		LocalTime controle = horaInicio;
+
+		horas.add(horaInicio.format(DateTimeFormatter.ofPattern("HH:mm")));
+
 		while (controle.isBefore(horaFim)) {
 			LocalTime temp = controle.plusHours(intervalo.getHour()).plusMinutes(intervalo.getMinute());
 			if (temp.isAfter(horaFim))
@@ -66,12 +66,13 @@ public class AgendamentoService extends CrudService<Agendamento, Long>{
 			controle = temp;
 			horas.add(temp.toString());
 		}
+
 		List<String> espelho = horas.stream().filter(s -> {
 			Boolean retorno = true;
 			List<Boolean> bolList = new ArrayList<>();
 			bolList.add(retorno);
 			horasAgendadas.forEach(hora -> {
-				if (s.equals(hora.getHora().toString()) && hora.getConta()>=disponibilidade) {
+				if (s.equals(hora.getHora().toString()) && hora.getConta() >= disponibilidade) {
 					bolList.set(0, false);
 				}
 			});

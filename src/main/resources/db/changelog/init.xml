@@ -110,7 +110,7 @@
 			<column name="exame_id" type="int">
 				<constraints foreignKeyName="fk_exame" referencedTableName="exame" referencedColumnNames="id" nullable="false" />
 			</column>
-			<column name="data_exame" type="date">
+			<column name="data_exame" type="dateTime">
 				<constraints nullable="false" />
 			</column>
 			<column name="data_retirada" type="date">

@@ -6,9 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import br.com.tiacademy.exameagenda.domain.Agendamento;
-import br.com.tiacademy.exameagenda.domain.Aplicador;
-import br.com.tiacademy.exameagenda.domain.Exame;
-import br.com.tiacademy.exameagenda.domain.Paciente;
 import br.com.tiacademy.exameagenda.dto.AgendamentoDTO;
 import br.com.tiacademy.exameagenda.service.AplicadorService;
 import br.com.tiacademy.exameagenda.service.ExameService;
