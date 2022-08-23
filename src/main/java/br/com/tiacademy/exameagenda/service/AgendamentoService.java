@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.tiacademy.exameagenda.core.crud.CrudService;
 import br.com.tiacademy.exameagenda.domain.Agendamento;
+import br.com.tiacademy.exameagenda.domain.Aplicador;
 import br.com.tiacademy.exameagenda.domain.Exame;
 import br.com.tiacademy.exameagenda.domain.Paciente;
 import br.com.tiacademy.exameagenda.dto.AgendaHorasDTO;
@@ -33,6 +34,9 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 	protected ExameService exameService;
 
 	@Autowired
+	protected AplicadorService aplicadorService;
+
+	@Autowired
 	protected AgendamentoRepository agendaRepository;
 
 	@Override
@@ -46,7 +50,7 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 
 	public List<String> geraHoras(Long id, String data) {
 		List<String> horas = new ArrayList<>();
-		List<AgendaHorasDTO> horasAgendadas = agendaRepository.porDataExame(data);
+		List<AgendaHorasDTO> horasAgendadas = agendaRepository.porDataExame(data, id);
 
 		Exame exame = exameService.porId(id);
 		if (exame == null)
@@ -55,6 +59,8 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 		LocalTime horaFim = LocalTime.parse(exame.getHora_fim());
 		LocalTime intervalo = LocalTime.parse(exame.getDuracao());
 		Long disponibilidade = exame.getDisponibilidade();
+		List<Aplicador> aplicadores = aplicadorService.porEspecialidade(exame.getTipo());
+		int totalAplicadores = aplicadores.size();
 		LocalTime controle = horaInicio;
 
 		horas.add(horaInicio.format(DateTimeFormatter.ofPattern("HH:mm")));
@@ -72,7 +78,8 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 			List<Boolean> bolList = new ArrayList<>();
 			bolList.add(retorno);
 			horasAgendadas.forEach(hora -> {
-				if (s.equals(hora.getHora().toString()) && hora.getConta() >= disponibilidade) {
+				Long contagem=hora.getConta();
+				if (s.equals(hora.getHora().toString()) && (contagem >= disponibilidade || contagem>=totalAplicadores)) {
 					bolList.set(0, false);
 				}
 			});

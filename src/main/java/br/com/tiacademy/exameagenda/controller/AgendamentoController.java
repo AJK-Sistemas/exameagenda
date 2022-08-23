@@ -37,9 +37,9 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
     }
 
     @GetMapping("/horas/{id}/{data}")
-    public List<String> espelhoHoras(@PathVariable("id") Long id, @PathVariable("data") String data) {
+    public List<String> espelhoHoras(@PathVariable("id") Long idExame, @PathVariable("data") String data) {
 
-        List<String> horas =agservice.geraHoras(id,data);
+        List<String> horas =agservice.geraHoras(idExame,data);
 
         return horas;
     }

@@ -11,6 +11,7 @@ import br.com.tiacademy.exameagenda.dto.AgendaHorasDTO;
 
 @Repository
 public interface AgendamentoRepository extends CrudRepository<Agendamento, Long>{
-    @Query(value="select Time(data_exame) as hora, count(data_exame) as conta  from agendamento where Date(data_exame)=:dataExame group by data_exame",nativeQuery=true)
-    List<AgendaHorasDTO> porDataExame(String dataExame);
+    @Query(value="select Time(data_exame) as hora, count(data_exame) as conta  from agendamento where Date(data_exame)=:datae and exame_id =:id group by data_exame",nativeQuery=true)
+    List<AgendaHorasDTO> porDataExame(String datae, Long id);
+
 }
