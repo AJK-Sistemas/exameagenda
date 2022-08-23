@@ -1,5 +1,6 @@
 package br.com.tiacademy.exameagenda.converter;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,16 +25,14 @@ public class AgendamentoConverter implements CrudConverter<Agendamento, Agendame
     @Autowired
     public ExameService exameService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
     public AgendamentoDTO entidadeParaDto(Agendamento entidade) {
-        return new AgendamentoDTO(
-                entidade.getId(),
-                entidade.getPaciente().getId(),
-                entidade.getAplicador().getId(),
-                entidade.getExame().getId(),
-                entidade.getDataExame(),
-                entidade.getDataRetirada(),
-                entidade.getStatus());
+
+        return modelMapper.map(entidade, AgendamentoDTO.class);
+
     }
 
     @Override

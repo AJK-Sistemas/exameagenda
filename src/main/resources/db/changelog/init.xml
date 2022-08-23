@@ -73,7 +73,13 @@
 			<column name="descricao" type="varchar(255)">
 				<constraints nullable="false" />
 			</column>
-			<column name="duracao" type="int">
+			<column name="duracao" type="varchar(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="hora_inicio" type="varchar(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="hora_fim" type="varchar(10)">
 				<constraints nullable="false" />
 			</column>
 			<column name="disponibilidade" type="int">

@@ -1,12 +1,14 @@
 package br.com.tiacademy.exameagenda.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import br.com.tiacademy.exameagenda.core.crud.CrudDomain;
@@ -24,16 +26,19 @@ public class Agendamento implements CrudDomain<Long>, Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime dataExame;
-    private LocalDateTime dataRetirada;
+    private LocalDate dataRetirada;
     private String status;
 
     @ManyToOne
+    @JoinColumn(name="paciente_id", referencedColumnName = "id")
     private Paciente paciente;
 
     @ManyToOne
+    @JoinColumn(name="exame_id", referencedColumnName = "id")
     private Exame exame;
 
     @ManyToOne
+    @JoinColumn(name="aplicador_id", referencedColumnName = "id")
     private Aplicador aplicador;
 
 }

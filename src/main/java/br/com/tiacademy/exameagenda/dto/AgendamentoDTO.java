@@ -1,6 +1,7 @@
 package br.com.tiacademy.exameagenda.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ public class AgendamentoDTO implements Serializable {
     private Long aplicador_id;
     private Long exame_id;
     private LocalDateTime dataExame;
-    private LocalDateTime dataRetirada;
+    private LocalDate dataRetirada;
     private String status;
 
 }
