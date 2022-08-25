@@ -43,4 +43,5 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
 
         return horas;
     }
+    
 }

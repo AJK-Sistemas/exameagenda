@@ -1,9 +1,17 @@
 package br.com.tiacademy.exameagenda.service;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +58,7 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 
 	public List<String> geraHoras(Long id, String data) {
 		List<String> horas = new ArrayList<>();
-		List<AgendaHorasDTO> horasAgendadas = agendaRepository.porDataExame(data, id);
+		List<AgendaHorasDTO> horasAgendadas = agendaRepository.porDataExame(data,id);
 
 		Exame exame = exameService.porId(id);
 		if (exame == null)
@@ -79,7 +87,7 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 			bolList.add(retorno);
 			horasAgendadas.forEach(hora -> {
 				Long contagem=hora.getConta();
-				if (s.equals(hora.getHora().toString()) && (contagem >= disponibilidade || contagem>=totalAplicadores)) {
+				if (s.equals(hora.getHora()) && (contagem >= disponibilidade || contagem>=totalAplicadores)) {
 					bolList.set(0, false);
 				}
 			});

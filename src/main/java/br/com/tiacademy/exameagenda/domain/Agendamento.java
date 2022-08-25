@@ -28,7 +28,7 @@ public class Agendamento implements CrudDomain<Long>, Serializable{
     private LocalDateTime dataExame;
     private LocalDate dataRetirada;
     private String status;
-
+    
     @ManyToOne
     @JoinColumn(name="paciente_id", referencedColumnName = "id")
     private Paciente paciente;
