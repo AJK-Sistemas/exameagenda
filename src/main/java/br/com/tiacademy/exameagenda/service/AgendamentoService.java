@@ -50,7 +50,7 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 
 	public List<String> geraHoras(Long id, String data) {
 		List<String> horas = new ArrayList<>();
-		List<AgendaHorasDTO> horasAgendadas = agendaRepository.porDataExame(data,id);
+		List<AgendaHorasDTO> horasAgendadas = agendaRepository.porDataExameHorarios(data, id);
 
 		Exame exame = exameService.porId(id);
 		if (exame == null)
@@ -78,8 +78,8 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 			List<Boolean> bolList = new ArrayList<>();
 			bolList.add(retorno);
 			horasAgendadas.forEach(hora -> {
-				Long contagem=hora.getConta();
-				if (s.equals(hora.getHora()) && (contagem >= disponibilidade || contagem>=totalAplicadores)) {
+				Long contagem = hora.getConta();
+				if (s.equals(hora.getHora()) && (contagem >= disponibilidade || contagem >= totalAplicadores)) {
 					bolList.set(0, false);
 				}
 			});
@@ -88,4 +88,5 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 		}).collect(Collectors.toList());
 		return espelho;
 	}
+
 }

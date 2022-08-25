@@ -12,7 +12,7 @@ import br.com.tiacademy.exameagenda.dto.PacienteDTO;
 public class PacienteConverter implements CrudConverter<Paciente, PacienteDTO> {
     @Autowired
     private ModelMapper modelMapper;
-    
+
     @Override
     public PacienteDTO entidadeParaDto(Paciente entidade) {
         return modelMapper.map(entidade, PacienteDTO.class);
@@ -22,5 +22,5 @@ public class PacienteConverter implements CrudConverter<Paciente, PacienteDTO> {
     public Paciente dtoParaEntidade(PacienteDTO dto) {
         return modelMapper.map(dto, Paciente.class);
     }
-    
+
 }

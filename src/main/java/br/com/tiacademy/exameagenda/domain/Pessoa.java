@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 import br.com.tiacademy.exameagenda.core.crud.CrudDomain;
 
-public abstract class Pessoa implements CrudDomain<Long>, Serializable{
+public abstract class Pessoa implements CrudDomain<Long>, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +17,5 @@ public abstract class Pessoa implements CrudDomain<Long>, Serializable{
     protected String cpf;
     protected String telefone;
     protected String email;
-    
+
 }

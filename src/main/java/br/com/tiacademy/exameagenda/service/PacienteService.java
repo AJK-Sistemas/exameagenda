@@ -6,8 +6,8 @@ import br.com.tiacademy.exameagenda.core.crud.CrudService;
 import br.com.tiacademy.exameagenda.domain.Paciente;
 
 @Service
-public class PacienteService extends CrudService<Paciente, Long>{
-    @Override
+public class PacienteService extends CrudService<Paciente, Long> {
+	@Override
 	protected Paciente editarEntidade(Paciente recuperado, Paciente entidade) {
 		recuperado.setNome(entidade.getNome());
 		recuperado.setCpf(entidade.getCpf());
@@ -16,7 +16,7 @@ public class PacienteService extends CrudService<Paciente, Long>{
 		return recuperado;
 	}
 
-	public Boolean exist(Long id){
+	public Boolean exist(Long id) {
 		return repository.existsById(id);
 	}
 }

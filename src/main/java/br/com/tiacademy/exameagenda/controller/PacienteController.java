@@ -9,6 +9,6 @@ import br.com.tiacademy.exameagenda.dto.PacienteDTO;
 
 @RestController
 @RequestMapping("/paciente")
-public class PacienteController extends CrudController<Paciente, PacienteDTO, Long>{
-    
+public class PacienteController extends CrudController<Paciente, PacienteDTO, Long> {
+
 }

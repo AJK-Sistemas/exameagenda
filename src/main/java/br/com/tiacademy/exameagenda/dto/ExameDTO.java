@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ExameDTO implements Serializable{
+public class ExameDTO implements Serializable {
     private Long id;
     private String tipo;
     private String descricao;

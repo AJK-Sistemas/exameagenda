@@ -19,7 +19,7 @@ import br.com.tiacademy.exameagenda.service.AgendamentoService;
 
 @RestController
 @RequestMapping("/agendamento")
-public class AgendamentoController extends CrudController<Agendamento, AgendamentoDTO, Long>{
+public class AgendamentoController extends CrudController<Agendamento, AgendamentoDTO, Long> {
 
     @Autowired
     public AgendamentoService agservice;
@@ -39,9 +39,9 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
     @GetMapping("/horas/{id}/{data}")
     public List<String> espelhoHoras(@PathVariable("id") Long idExame, @PathVariable("data") String data) {
 
-        List<String> horas =agservice.geraHoras(idExame,data);
+        List<String> horas = agservice.geraHoras(idExame, data);
 
         return horas;
     }
-    
+
 }

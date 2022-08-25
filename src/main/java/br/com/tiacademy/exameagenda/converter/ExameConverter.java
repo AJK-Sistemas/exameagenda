@@ -9,10 +9,10 @@ import br.com.tiacademy.exameagenda.domain.Exame;
 import br.com.tiacademy.exameagenda.dto.ExameDTO;
 
 @Component
-public class ExameConverter implements CrudConverter<Exame, ExameDTO>{
+public class ExameConverter implements CrudConverter<Exame, ExameDTO> {
     @Autowired
     private ModelMapper modelMapper;
-    
+
     @Override
     public ExameDTO entidadeParaDto(Exame entidade) {
         return modelMapper.map(entidade, ExameDTO.class);

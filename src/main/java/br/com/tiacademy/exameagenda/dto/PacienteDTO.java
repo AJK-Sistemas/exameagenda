@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PacienteDTO implements Serializable{
+public class PacienteDTO implements Serializable {
     private Long id;
     private String nome;
     private String cpf;

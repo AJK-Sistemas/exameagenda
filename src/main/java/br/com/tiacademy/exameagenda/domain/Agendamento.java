@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Agendamento implements CrudDomain<Long>, Serializable{
+public class Agendamento implements CrudDomain<Long>, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,17 +28,17 @@ public class Agendamento implements CrudDomain<Long>, Serializable{
     private LocalDateTime dataExame;
     private LocalDate dataRetirada;
     private String status;
-    
+
     @ManyToOne
-    @JoinColumn(name="paciente_id", referencedColumnName = "id")
+    @JoinColumn(name = "paciente_id", referencedColumnName = "id")
     private Paciente paciente;
 
     @ManyToOne
-    @JoinColumn(name="exame_id", referencedColumnName = "id")
+    @JoinColumn(name = "exame_id", referencedColumnName = "id")
     private Exame exame;
 
     @ManyToOne
-    @JoinColumn(name="aplicador_id", referencedColumnName = "id")
+    @JoinColumn(name = "aplicador_id", referencedColumnName = "id")
     private Aplicador aplicador;
 
 }

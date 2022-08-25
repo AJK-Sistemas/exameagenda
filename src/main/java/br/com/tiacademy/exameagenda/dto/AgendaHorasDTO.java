@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class AgendaHorasDTO implements Serializable{
+public class AgendaHorasDTO implements Serializable {
     private String hora;
     private Long conta;
 }
