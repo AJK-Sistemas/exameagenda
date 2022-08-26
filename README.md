@@ -1,5 +1,5 @@
 # Agenda de Exames
-|AGENDAMENTO|APLICADOR|EXAME|PACIENTE
+|AGENDAMENTO|APLICADOR|
 |---|---|
 |**GET**|**GET**|**GET**|**GET**|
 |/agendamento|/aplicador|
@@ -14,7 +14,7 @@
 |**PUT**|/aplicador/id|
 |/agendamento/id|**DELETE**|
 |**DELETE**|/aplicador/id|
-|/agendamento/id|
+|/agendamento/id|   
 
 #### GET
 /aplicador<br/>
