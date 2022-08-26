@@ -1,12 +1,13 @@
 # Agenda de Exames
-### AGENDAMENTO
-#### GET
-/agendamento<br/>
-/agendamento/lista<br/>
-/agendamento/id<br/>
-/agendamento/horas/id/data<br/>
-/agendamento/agendadata/data<br/>
-/agendamento/retiradadata/data
+|### AGENDAMENTO|
+|---------------|
+|#### GET|
+|/agendamento<br/>|
+|/agendamento/lista<br/>|
+|/agendamento/id<br/>|
+|/agendamento/horas/id/data<br/>|
+|/agendamento/agendadata/data<br/>|
+|/agendamento/retiradadata/data|
 
 #### POST
 /agendamento<br/>
