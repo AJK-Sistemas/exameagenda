@@ -1,7 +1,7 @@
 # Agenda de Exames
 ### AGENDAMENTO
 #### GET
-/agendamento
+/agendamento<br/>
 /agendamento/lista
 /agendamento/id
 /agendamento/horas/id/data
