@@ -1,25 +1,21 @@
 # Agenda de Exames
-|AGENDAMENTO|
-|---------------|
-|GET|
-|/agendamento<br/>|
-|/agendamento/lista<br/>|
-|/agendamento/id<br/>|
-|/agendamento/horas/id/data<br/>|
-|/agendamento/agendadata/data<br/>|
-|/agendamento/retiradadata/data|
-|------------------------------|
-|POST|
-|/agendamento<br/>|
-|/agendamento/objeto|
-|-------------------|
-|PUT|
-|/agendamento/id|
-|---------------|
-|DELETE|
+|AGENDAMENTO|APLICADOR|EXAME|PACIENTE
+|---|---|
+|**GET**|**GET**|**GET**|**GET**|
+|/agendamento|/aplicador|
+|/agendamento/lista|/aplicador/lista|
+|/agendamento/id|/aplicador/id|
+|/agendamento/horas/id/data|/aplicador/disponiveis/hora/data/especialidade|
+|/agendamento/agendadata/data|**POST**|
+|/agendamento/retiradadata/data|aplicador|
+|**POST**|**PUT**|
+|/agendamento|/aplicador/id|
+|/agendamento/objeto|**PUT**|
+|**PUT**|/aplicador/id|
+|/agendamento/id|**DELETE**|
+|**DELETE**|/aplicador/id|
 |/agendamento/id|
 
-### APLICADOR
 #### GET
 /aplicador<br/>
 /aplicador/lista<br/>
