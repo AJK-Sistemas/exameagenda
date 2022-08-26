@@ -1,7 +1,7 @@
 # Agenda de Exames
 |AGENDAMENTO|APLICADOR|EXAME|PACIENTE
 |---|---|---|---|
-|**GET**||
+|**GET**                            ||
 |/agendamento|/aplicador|/exame|/paciente|
 |/agendamento/lista|/aplicador/lista|/exame/lista|/paciente/lista|
 |/agendamento/id|/aplicador/id|/exame/id|/paciente/id|
