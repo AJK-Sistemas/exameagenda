@@ -1,23 +1,23 @@
 # Agenda de Exames
-|### AGENDAMENTO|
+|AGENDAMENTO|
 |---------------|
-|#### GET|
+|GET|
 |/agendamento<br/>|
 |/agendamento/lista<br/>|
 |/agendamento/id<br/>|
 |/agendamento/horas/id/data<br/>|
 |/agendamento/agendadata/data<br/>|
 |/agendamento/retiradadata/data|
-
-#### POST
-/agendamento<br/>
-/agendamento/objeto
-
-#### PUT
-/agendamento/id
-
-#### DELETE
-/agendamento/id
+|------------------------------|
+|POST|
+|/agendamento<br/>|
+|/agendamento/objeto|
+|-------------------|
+|PUT|
+|/agendamento/id|
+|---------------|
+|DELETE|
+|/agendamento/id|
 
 ### APLICADOR
 #### GET
