@@ -37,26 +37,26 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
     }
 
     @GetMapping("/horas/{id}/{data}")
-    public List<String> espelhoHoras(@PathVariable("id") Long idExame, @PathVariable("data") String data) {
+    public ResponseEntity<List<String>> espelhoHoras(@PathVariable("id") Long idExame, @PathVariable("data") String data) {
 
         List<String> horas = agservice.geraHoras(idExame, data);
 
-        return horas;
+        return ResponseEntity.ok(horas);
     }
 
     @GetMapping("/agendadata/{data}")
-    public List<Agendamento> datasDeExame(@PathVariable("data") String data) {
+    public ResponseEntity<List<Agendamento>> datasDeExame(@PathVariable("data") String data) {
 
         List<Agendamento> agendamentos = agservice.agendamentosData(data);
 
-        return agendamentos;
+        return ResponseEntity.ok(agendamentos);
     }
 
     @GetMapping("/retiradadata/{data}")
-    public List<Agendamento> datasDeRetirada(@PathVariable("data") String data) {
+    public ResponseEntity<List<Agendamento>> datasDeRetirada(@PathVariable("data") String data) {
 
         List<Agendamento> agendamentos = agservice.retiradasData(data);
 
-        return agendamentos;
+        return ResponseEntity.ok(agendamentos);
     }
 }

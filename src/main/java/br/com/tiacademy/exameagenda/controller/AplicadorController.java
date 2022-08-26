@@ -3,6 +3,7 @@ package br.com.tiacademy.exameagenda.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +21,11 @@ public class AplicadorController extends CrudController<Aplicador, AplicadorDTO,
     public AplicadorService apliService;
 
     @GetMapping("/disponiveis/{hora}/{data}/{especialidade}")
-    public List<Aplicador> apliDiponiveis(@PathVariable("hora") String hora, @PathVariable("data") String data,
+    public ResponseEntity<List<Aplicador>> apliDiponiveis(@PathVariable("hora") String hora, @PathVariable("data") String data,
             @PathVariable("especialidade") String especialidade) {
 
         List<Aplicador> agendas = apliService.apliDisponiveis(hora, data, especialidade);
 
-        return agendas;
+        return ResponseEntity.ok(agendas);
     }
 }
