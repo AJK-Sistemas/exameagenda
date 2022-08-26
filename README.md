@@ -7,7 +7,7 @@
 |/agendamento/id|/aplicador/id|
 |/agendamento/horas/id/data|/aplicador/disponiveis/hora/data/especialidade|
 |/agendamento/agendadata/data|**POST**|
-|/agendamento/retiradadata/data|aplicador|
+|/agendamento/retiradadata/data|/aplicador|
 |**POST**|**PUT**|
 |/agendamento|/aplicador/id|
 |/agendamento/objeto|**PUT**|
@@ -16,47 +16,15 @@
 |**DELETE**|/aplicador/id|
 |/agendamento/id|   
 
-#### GET
-/aplicador<br/>
-/aplicador/lista<br/>
-/aplicador/id<br/>
-/aplicador/disponiveis/hora/data/especialidade
-
-#### POST
-/aplicador
-
-#### PUT
-/aplicador/id
-
-#### DELETE
-/aplicador/id
-
-### EXAME
-#### GET
-/exame<br/>
-/exame/lista<br/>
-/exame/id
-
-#### POST
-/exame
-
-#### PUT
-/exame/id
-
-#### DELETE
-/exame/id
-
-### PACIENTE
-#### GET
-/paciente<br/>
-/paciente/lista<br/>
-/paciente/id
-
-#### POST
-/paciente
-
-#### PUT
-/paciente/id
-
-#### DELETE
-/paciente/id
+EXAME|PACIENTE
+|---|---|
+|**GET**|**GET**|
+|/exame|/paciente|
+|/exame/lista|/paciente/lista|
+|/exame/id|/paciente/id|
+|**POST**|**POST**|
+|/exame|/paciente|
+|**PUT**|**PUT**|
+|/exame/id|/paciente/id|
+|**DELETE**|**DELETE**|
+|/exame/id|/paciente/id|
