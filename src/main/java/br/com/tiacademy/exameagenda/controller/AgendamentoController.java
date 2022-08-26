@@ -44,4 +44,19 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
         return horas;
     }
 
+    @GetMapping("/agendadata/{data}")
+    public List<Agendamento> datasDeExame(@PathVariable("data") String data) {
+
+        List<Agendamento> agendamentos = agservice.agendamentosData(data);
+
+        return agendamentos;
+    }
+
+    @GetMapping("/retiradadata/{data}")
+    public List<Agendamento> datasDeRetirada(@PathVariable("data") String data) {
+
+        List<Agendamento> agendamentos = agservice.retiradasData(data);
+
+        return agendamentos;
+    }
 }

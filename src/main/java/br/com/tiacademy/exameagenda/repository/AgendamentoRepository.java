@@ -1,5 +1,6 @@
 package br.com.tiacademy.exameagenda.repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,4 +22,8 @@ public interface AgendamentoRepository extends CrudRepository<Agendamento, Long>
     List<AgendaHorasDTO> porDataExameHorarios(String datae, Long id);
 
     List<Agendamento> findByDataExame(LocalDateTime data);
+
+    List<Agendamento> findByDataExameBetween(LocalDateTime startDay, LocalDateTime endDay);
+
+    List<Agendamento> findByDataRetirada(LocalDate day);
 }

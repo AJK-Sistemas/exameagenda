@@ -1,5 +1,7 @@
 package br.com.tiacademy.exameagenda.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -87,6 +89,20 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 			return bolList.get(0);
 		}).collect(Collectors.toList());
 		return espelho;
+	}
+
+	public List<Agendamento> agendamentosData(String data) {
+		
+		List<Agendamento> agendamentos=agendaRepository.findByDataExameBetween(LocalDateTime.parse(data+"T00:00:00"),LocalDateTime.parse(data+"T23:59:59"));
+
+		return agendamentos;
+	}
+
+	public List<Agendamento> retiradasData(String data) {
+		
+		List<Agendamento> agendamentos=agendaRepository.findByDataRetirada(LocalDate.parse(data));
+
+		return agendamentos;
 	}
 
 }
