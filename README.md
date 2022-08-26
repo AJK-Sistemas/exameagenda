@@ -8,7 +8,7 @@
 |/agendamento/horas/{idExame}/{data}|/aplicador/disponiveis/{hora}/{data}/{especialidade}
 |/agendamento/agendadata/{data}|
 |/agendamento/retiradadata/{data}|
-|**POST**|**POST**||**POST**|**POST**|
+|**POST**|**POST**|**POST**|**POST**|
 |/agendamento|/aplicador|/exame|/paciente|
 |/agendamento/objeto|
 |**PUT**|**PUT**|**PUT**|**PUT**|
