@@ -1,6 +1,6 @@
 # Agenda de Exames
-###AGENDAMENTO
-####GET
+### AGENDAMENTO
+#### GET
 /agendamento
 /agendamento/lista
 /agendamento/id
@@ -8,58 +8,58 @@
 /agendamento/agendadata/data
 /agendamento/retiradadata/data
 
-####POST
+#### POST
 /agendamento
 /agendamento/objeto
 
-####PUT
+#### PUT
 /agendamento/id
 
-####DELETE
+#### DELETE
 /agendamento/id
 
-###APLICADOR
-####GET
+### APLICADOR
+#### GET
 /aplicador
 /aplicador/lista
 /aplicador/id
 /aplicador/disponiveis/hora/data/especialidade
 
-####POST
+#### POST
 /aplicador
 
-####PUT
+#### PUT
 /aplicador/id
 
-####DELETE
+#### DELETE
 /aplicador/id
 
-###EXAME
-####GET
+### EXAME
+#### GET
 /exame
 /exame/lista
 /exame/id
 
-####POST
+#### POST
 /exame
 
-####PUT
+#### PUT
 /exame/id
 
-####DELETE
+#### DELETE
 /exame/id
 
-###PACIENTE
-####GET
+### PACIENTE
+#### GET
 /paciente
 /paciente/lista
 /paciente/id
 
-####POST
+#### POST
 /paciente
 
-####PUT
+#### PUT
 /paciente/id
 
-####DELETE
+#### DELETE
 /paciente/id
