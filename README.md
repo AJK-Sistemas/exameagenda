@@ -2,14 +2,14 @@
 ### AGENDAMENTO
 #### GET
 /agendamento<br/>
-/agendamento/lista
-/agendamento/id
-/agendamento/horas/id/data
-/agendamento/agendadata/data
+/agendamento/lista<br/>
+/agendamento/id<br/>
+/agendamento/horas/id/data<br/>
+/agendamento/agendadata/data<br/>
 /agendamento/retiradadata/data
 
 #### POST
-/agendamento
+/agendamento<br/>
 /agendamento/objeto
 
 #### PUT
@@ -20,9 +20,9 @@
 
 ### APLICADOR
 #### GET
-/aplicador
-/aplicador/lista
-/aplicador/id
+/aplicador<br/>
+/aplicador/lista<br/>
+/aplicador/id<br/>
 /aplicador/disponiveis/hora/data/especialidade
 
 #### POST
@@ -36,8 +36,8 @@
 
 ### EXAME
 #### GET
-/exame
-/exame/lista
+/exame<br/>
+/exame/lista<br/>
 /exame/id
 
 #### POST
@@ -51,8 +51,8 @@
 
 ### PACIENTE
 #### GET
-/paciente
-/paciente/lista
+/paciente<br/>
+/paciente/lista<br/>
 /paciente/id
 
 #### POST
