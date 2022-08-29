@@ -69,6 +69,7 @@ public abstract class CrudController<T extends CrudDomain<ID>, D, ID> {
     public ResponseEntity<D> update(@PathVariable("id") ID id, @RequestBody D dto) {
 
         var novaEntidade = converter.dtoParaEntidade(dto);
+        
         var salvo = service.editar(id, novaEntidade);
 
         return ResponseEntity.ok(converter.entidadeParaDto(salvo));
@@ -76,7 +77,8 @@ public abstract class CrudController<T extends CrudDomain<ID>, D, ID> {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") ID id) {
-        service.excluir(id);
+    
+            service.excluir(id);
 
         return ResponseEntity.noContent().build();
     }

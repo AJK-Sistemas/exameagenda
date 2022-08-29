@@ -29,6 +29,35 @@
 	</changeSet>
 
 	<changeSet id="2" author="AJK-Sistemas">
+		<preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela exame">
+			<not>
+				<tableExists tableName="exame" />
+			</not>
+		</preConditions>
+		<createTable tableName="exame">
+			<column name="id" type="int">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="pk_exame" />
+			</column>
+			<column name="tipo" type="varchar(30)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="descricao" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="duracao" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="disponibilidade" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="valor" type="double">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addAutoIncrement tableName="exame" columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
+	</changeSet>
+
+	<changeSet id="3" author="AJK-Sistemas">
 		<preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela aplicador">
 			<not>
 				<tableExists tableName="aplicador" />
@@ -57,34 +86,6 @@
 		<addAutoIncrement tableName="aplicador" columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
 	</changeSet>
 
-	<changeSet id="3" author="AJK-Sistemas">
-		<preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela exame">
-			<not>
-				<tableExists tableName="exame" />
-			</not>
-		</preConditions>
-		<createTable tableName="exame">
-			<column name="id" type="int">
-				<constraints nullable="false" primaryKey="true" primaryKeyName="pk_exame" />
-			</column>
-			<column name="tipo" type="varchar(30)">
-				<constraints nullable="false" unique="true" />
-			</column>
-			<column name="descricao" type="varchar(255)">
-				<constraints nullable="false" />
-			</column>
-			<column name="duracao" type="int">
-				<constraints nullable="false" />
-			</column>
-			<column name="disponibilidade" type="int">
-				<constraints nullable="false" />
-			</column>
-			<column name="valor" type="double">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
-		<addAutoIncrement tableName="exame" columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
-	</changeSet>
 	<changeSet id="4" author="AJK-Sistemas">
 		<preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela agendamento">
 			<not>
@@ -98,19 +99,22 @@
 			<column name="paciente_id" type="int">
 				<constraints foreignKeyName="fk_paciente" referencedTableName="paciente" referencedColumnNames="id" nullable="false" />
 			</column>
-			<column name="aplicador_id" type="int">
-				<constraints foreignKeyName="fk_aplicador" referencedTableName="aplicador" referencedColumnNames="id" nullable="false" />
-			</column>
 			<column name="exame_id" type="int">
 				<constraints foreignKeyName="fk_exame" referencedTableName="exame" referencedColumnNames="id" nullable="false" />
 			</column>
+			<column name="aplicador_id" type="int">
+				<constraints foreignKeyName="fk_aplicador" referencedTableName="aplicador" referencedColumnNames="id" nullable="false" />
+			</column>
 			<column name="data_exame" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="hora_exame" type="time">
 				<constraints nullable="false" />
 			</column>
 			<column name="data_retirada" type="date">
 				<constraints nullable="false" />
 			</column>
-			<column name="status" type="varchar(15)">
+			<column name="status" type="varchar(20)">
 				<constraints nullable="false" />
 			</column>
 		</createTable>
