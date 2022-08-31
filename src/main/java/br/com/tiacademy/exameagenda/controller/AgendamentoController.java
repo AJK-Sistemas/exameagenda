@@ -3,7 +3,6 @@ package br.com.tiacademy.exameagenda.controller;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,18 +38,6 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
 
     @Autowired
     public ExameService exameService;
-
-    // @PostMapping("/objeto")
-    // public ResponseEntity<Agendamento> create(@RequestBody Agendamento entidade) {
-
-    //     var salvo = service.criar(entidade);
-
-    //     ServletUriComponentsBuilder buider = ServletUriComponentsBuilder.fromCurrentRequest();
-
-    //     var uri = buider.path("/{id}").buildAndExpand(salvo.getId()).toUri();
-
-    //     return ResponseEntity.created(uri).body(salvo);
-    // }
 
     @GetMapping("/paginada")
     public ResponseEntity<Page<Agendamento>> pagina(Pageable pageable) {
@@ -116,14 +103,6 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
 
         return ResponseEntity.ok(entidade);
     }
-
-    // @GetMapping("/agendadata/{data}")
-    // public ResponseEntity<List<Agendamento>> datasDeExame(@PathVariable("data") String data) {
-
-    //     List<Agendamento> agendamentos = agService.agendamentosData(data);
-
-    //     return ResponseEntity.ok(agendamentos);
-    // }
 
     @GetMapping("/{status}/{data}")
     public ResponseEntity<List<Agendamento>> listagemDiaria(@PathVariable("status") String status,

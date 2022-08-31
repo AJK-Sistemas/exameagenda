@@ -16,7 +16,6 @@ import br.com.tiacademy.exameagenda.domain.Aplicador;
 import br.com.tiacademy.exameagenda.domain.Exame;
 import br.com.tiacademy.exameagenda.domain.Paciente;
 import br.com.tiacademy.exameagenda.dto.AgendaHorasDTO;
-import br.com.tiacademy.exameagenda.dto.AgendamentoDTO;
 import br.com.tiacademy.exameagenda.repository.AgendamentoRepository;
 
 @Service
@@ -94,20 +93,6 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 		}).collect(Collectors.toList());
 		return espelho;
 	}
-
-	// public List<Agendamento> agendamentosData(String data) {
-		
-	// 	List<Agendamento> agendamentos=agendamentoRepository.findByDataExameBetween(LocalDateTime.parse(data+"T00:00:00"),LocalDateTime.parse(data+"T23:59:59"));
-
-	// 	return agendamentos;
-	// }
-
-	// public List<Agendamento> retiradasData(String data) {
-		
-	// 	List<Agendamento> agendamentos=agendaRepository.findByDataRetirada(LocalDate.parse(data));
-
-	// 	return agendamentos;
-	// }
 
 	public List<Agendamento> getListagemDiaria(String status, Date data) {
 
