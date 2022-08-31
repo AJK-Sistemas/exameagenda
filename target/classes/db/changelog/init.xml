@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+					http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+	<changeSet id="1" author="AJK-Sistemas">
+		<preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela paciente">
+			<not>
+				<tableExists tableName="paciente" />
+			</not>
+		</preConditions>
+		<createTable tableName="paciente">
+			<column name="id" type="int">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="pk_paciente" />
+			</column>
+			<column name="nome" type="varchar(30)">
+				<constraints nullable="false" />
+			</column>
+			<column name="cpf" type="varchar(11)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="telefone" type="varchar(15)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="email" type="varchar(30)">
+				<constraints nullable="false" unique="true" />
+			</column>
+		</createTable>
+		<addAutoIncrement tableName="paciente" columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
+	</changeSet>
+
+	<changeSet id="2" author="AJK-Sistemas">
+		<preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela exame">
+			<not>
+				<tableExists tableName="exame" />
+			</not>
+		</preConditions>
+		<createTable tableName="exame">
+			<column name="id" type="int">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="pk_exame" />
+			</column>
+			<column name="tipo" type="varchar(30)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="descricao" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="duracao" type="time">
+				<constraints nullable="false" />
+			</column>
+			<column name="hora_inicio" type="time">
+				<constraints nullable="false" />
+			</column>
+			<column name="hora_fim" type="time">
+				<constraints nullable="false" />
+			</column>
+			<column name="disponibilidade" type="int">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addAutoIncrement tableName="exame" columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
+	</changeSet>
+
+	<changeSet id="3" author="AJK-Sistemas">
+		<preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela aplicador">
+			<not>
+				<tableExists tableName="aplicador" />
+			</not>
+		</preConditions>
+		<createTable tableName="aplicador">
+			<column name="id" type="int">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="pk_aplicador" />
+			</column>
+			<column name="nome" type="varchar(30)">
+				<constraints nullable="false" />
+			</column>
+			<column name="cpf" type="varchar(11)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="telefone" type="varchar(15)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="email" type="varchar(30)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="especialidade" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addAutoIncrement tableName="aplicador" columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
+	</changeSet>
+
+	<changeSet id="4" author="AJK-Sistemas">
+		<preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela agendamento">
+			<not>
+				<tableExists tableName="agendamento" />
+			</not>
+		</preConditions>
+		<createTable tableName="agendamento">
+			<column name="id" type="int">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="pk_agendamento" />
+			</column>
+			<column name="paciente_id" type="int">
+				<constraints foreignKeyName="fk_paciente" referencedTableName="paciente" referencedColumnNames="id" nullable="false" />
+			</column>
+			<column name="exame_id" type="int">
+				<constraints foreignKeyName="fk_exame" referencedTableName="exame" referencedColumnNames="id" nullable="false" />
+			</column>
+			<column name="aplicador_id" type="int">
+				<constraints foreignKeyName="fk_aplicador" referencedTableName="aplicador" referencedColumnNames="id" nullable="false" />
+			</column>
+			<column name="data_exame" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="hora_exame" type="time">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_retirada" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="status" type="varchar(20)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addAutoIncrement tableName="agendamento" columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
+	</changeSet>
+</databaseChangeLog>
