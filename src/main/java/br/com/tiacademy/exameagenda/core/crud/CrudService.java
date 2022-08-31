@@ -42,6 +42,10 @@ public abstract class CrudService<T, ID> {
 	}
 
 	public void excluir(ID id) {
+		T recuperado = porId(id);
+		if (Objects.isNull(recuperado)) {
+			throw new RuntimeException("Objeto não foi encontrado!");
+		}
 		repository.deleteById(id);
 	}
 

@@ -1,12 +1,15 @@
 package br.com.tiacademy.exameagenda.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.tiacademy.exameagenda.core.crud.CrudService;
 import br.com.tiacademy.exameagenda.domain.Paciente;
+import br.com.tiacademy.exameagenda.repository.ExameRepository;
 
 @Service
 public class PacienteService extends CrudService<Paciente, Long> {
+	
 	@Override
 	protected Paciente editarEntidade(Paciente recuperado, Paciente entidade) {
 		recuperado.setNome(entidade.getNome());
@@ -19,4 +22,5 @@ public class PacienteService extends CrudService<Paciente, Long> {
 	public Boolean exist(Long id) {
 		return repository.existsById(id);
 	}
+
 }

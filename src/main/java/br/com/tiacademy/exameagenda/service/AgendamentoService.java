@@ -1,10 +1,9 @@
 package br.com.tiacademy.exameagenda.service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +16,7 @@ import br.com.tiacademy.exameagenda.domain.Aplicador;
 import br.com.tiacademy.exameagenda.domain.Exame;
 import br.com.tiacademy.exameagenda.domain.Paciente;
 import br.com.tiacademy.exameagenda.dto.AgendaHorasDTO;
+import br.com.tiacademy.exameagenda.dto.AgendamentoDTO;
 import br.com.tiacademy.exameagenda.repository.AgendamentoRepository;
 
 @Service
@@ -24,8 +24,12 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 	@Override
 	protected Agendamento editarEntidade(Agendamento recuperado, Agendamento entidade) {
 		recuperado.setDataExame(entidade.getDataExame());
+		recuperado.setHoraExame(entidade.getHoraExame());
 		recuperado.setDataRetirada(entidade.getDataRetirada());
 		recuperado.setStatus(entidade.getStatus());
+		recuperado.setPaciente(entidade.getPaciente());
+		recuperado.setExame(entidade.getExame());
+		recuperado.setAplicador(entidade.getAplicador());
 		return recuperado;
 	}
 
@@ -39,7 +43,7 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 	protected AplicadorService aplicadorService;
 
 	@Autowired
-	protected AgendamentoRepository agendaRepository;
+	protected AgendamentoRepository agendamentoRepository;
 
 	@Override
 	public Agendamento criar(Agendamento entidade) {
@@ -50,38 +54,38 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 		return repository.save(entidade);
 	}
 
-	public List<String> geraHoras(Long id, String data) {
-		List<String> horas = new ArrayList<>();
-		List<AgendaHorasDTO> horasAgendadas = agendaRepository.porDataExameHorarios(data, id);
+	public List<Time> geraHoras(Long id, Date data) {
+		List<Time> horas = new ArrayList<>();
+		List<AgendaHorasDTO> horasAgendadas = agendamentoRepository.porDataExameHorarios(data, id);
 
 		Exame exame = exameService.porId(id);
 		if (exame == null)
 			return horas;
-		LocalTime horaInicio = LocalTime.parse(exame.getHora_inicio());
-		LocalTime horaFim = LocalTime.parse(exame.getHora_fim());
-		LocalTime intervalo = LocalTime.parse(exame.getDuracao());
+		Time horaInicio = exame.getHoraInicio();
+		Time horaFim = exame.getHoraFim();
+		Time intervalo = Time.valueOf(exame.getDuracao());
 		Long disponibilidade = exame.getDisponibilidade();
 		List<Aplicador> aplicadores = aplicadorService.porEspecialidade(exame.getTipo());
 		int totalAplicadores = aplicadores.size();
-		LocalTime controle = horaInicio;
+		Time controle = horaInicio;
 
-		horas.add(horaInicio.format(DateTimeFormatter.ofPattern("HH:mm")));
+		horas.add(horaInicio);
 
-		while (controle.isBefore(horaFim)) {
-			LocalTime temp = controle.plusHours(intervalo.getHour()).plusMinutes(intervalo.getMinute());
-			if (temp.isAfter(horaFim))
+		while (controle.before(horaFim)) {
+			Time temp = Time.valueOf(controle.toLocalTime().plusHours(intervalo.toLocalTime().getHour()).plusMinutes(intervalo.toLocalTime().getMinute()));
+			if (temp.after(horaFim))
 				break;
 			controle = temp;
-			horas.add(temp.toString());
+			horas.add(temp);
 		}
 
-		List<String> espelho = horas.stream().filter(s -> {
+		List<Time> espelho = horas.stream().filter(s -> {
 			Boolean retorno = true;
 			List<Boolean> bolList = new ArrayList<>();
 			bolList.add(retorno);
 			horasAgendadas.forEach(hora -> {
 				Long contagem = hora.getConta();
-				if (s.equals(hora.getHora()) && (contagem >= disponibilidade || contagem >= totalAplicadores)) {
+				if (s.toString().equals(hora.getHora().toString()) && (contagem >= disponibilidade || contagem >= totalAplicadores)) {
 					bolList.set(0, false);
 				}
 			});
@@ -91,18 +95,37 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 		return espelho;
 	}
 
-	public List<Agendamento> agendamentosData(String data) {
+	// public List<Agendamento> agendamentosData(String data) {
 		
-		List<Agendamento> agendamentos=agendaRepository.findByDataExameBetween(LocalDateTime.parse(data+"T00:00:00"),LocalDateTime.parse(data+"T23:59:59"));
+	// 	List<Agendamento> agendamentos=agendamentoRepository.findByDataExameBetween(LocalDateTime.parse(data+"T00:00:00"),LocalDateTime.parse(data+"T23:59:59"));
 
-		return agendamentos;
+	// 	return agendamentos;
+	// }
+
+	// public List<Agendamento> retiradasData(String data) {
+		
+	// 	List<Agendamento> agendamentos=agendaRepository.findByDataRetirada(LocalDate.parse(data));
+
+	// 	return agendamentos;
+	// }
+
+	public List<Agendamento> getListagemDiaria(String status, Date data) {
+
+		return agendamentoRepository.listagemDiaria(status, data);
 	}
 
-	public List<Agendamento> retiradasData(String data) {
-		
-		List<Agendamento> agendamentos=agendaRepository.findByDataRetirada(LocalDate.parse(data));
+	public Long idAplicador(String tipo){
+		return agendamentoRepository.idAplicador(tipo);
+	}
 
-		return agendamentos;
+	public List<Agendamento> getAgendamento() {
+
+		return repository.findAll();
+	}
+
+	public List<Agendamento> getByDataExame(Date data) {
+
+		return agendamentoRepository.dataExame(data);
 	}
 
 }

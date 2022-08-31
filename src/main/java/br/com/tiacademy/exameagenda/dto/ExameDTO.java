@@ -1,6 +1,7 @@
 package br.com.tiacademy.exameagenda.dto;
 
 import java.io.Serializable;
+import java.sql.Time;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,8 +15,7 @@ public class ExameDTO implements Serializable {
     private String tipo;
     private String descricao;
     private String duracao;
-    private String hora_inicio;
-    private String hora_fim;
+    private Time horaInicio;
+    private Time horaFim;
     private Long disponibilidade;
-    private double valor;
 }

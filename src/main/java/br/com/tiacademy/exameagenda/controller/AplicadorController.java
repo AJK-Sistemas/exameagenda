@@ -1,5 +1,7 @@
 package br.com.tiacademy.exameagenda.controller;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,9 @@ public class AplicadorController extends CrudController<Aplicador, AplicadorDTO,
     public AplicadorService apliService;
 
     @GetMapping("/disponiveis/{hora}/{data}/{especialidade}")
-    public ResponseEntity<List<Aplicador>> apliDiponiveis(@PathVariable("hora") String hora, @PathVariable("data") String data,
+    public ResponseEntity<List<Aplicador>> apliDiponiveis(@PathVariable("hora") Time hora,
+            @PathVariable("data") Date data,
             @PathVariable("especialidade") String especialidade) {
-
         List<Aplicador> agendas = apliService.apliDisponiveis(hora, data, especialidade);
 
         return ResponseEntity.ok(agendas);

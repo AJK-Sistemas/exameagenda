@@ -10,17 +10,36 @@ import br.com.tiacademy.exameagenda.dto.PacienteDTO;
 
 @Component
 public class PacienteConverter implements CrudConverter<Paciente, PacienteDTO> {
-    @Autowired
-    private ModelMapper modelMapper;
+    // @Autowired
+    // private ModelMapper modelMapper;
 
+    // @Override
+    // public PacienteDTO entidadeParaDto(Paciente entidade) {
+    //     return modelMapper.map(entidade, PacienteDTO.class);
+    // }
+
+    // @Override
+    // public Paciente dtoParaEntidade(PacienteDTO dto) {
+    //     return modelMapper.map(dto, Paciente.class);
+    // }
     @Override
     public PacienteDTO entidadeParaDto(Paciente entidade) {
-        return modelMapper.map(entidade, PacienteDTO.class);
+        return new PacienteDTO(
+                entidade.getId(),
+                entidade.getNome(),
+                entidade.getCpf(),
+                entidade.getTelefone(),
+                entidade.getEmail());
     }
 
     @Override
     public Paciente dtoParaEntidade(PacienteDTO dto) {
-        return modelMapper.map(dto, Paciente.class);
+        return new Paciente(
+                dto.getId(),
+                dto.getNome(),
+                dto.getCpf(),
+                dto.getTelefone(),
+                dto.getEmail());
     }
 
 }

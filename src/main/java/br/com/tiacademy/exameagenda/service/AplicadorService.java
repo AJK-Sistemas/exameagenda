@@ -1,6 +1,8 @@
 package br.com.tiacademy.exameagenda.service;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.sql.Time;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,11 +37,11 @@ public class AplicadorService extends CrudService<Aplicador, Long> {
 		return aplicadores;
 	}
 
-	public List<Aplicador> apliDisponiveis(String hora, String data, String especialidade) {
+	public List<Aplicador> apliDisponiveis(Time hora, Date data, String especialidade) {
 
 		List<Aplicador> aplicadores = apliRepo.findByEspecialidade(especialidade);
 
-		List<Aplicador> ocupados = agendaRepo.findByDataExame(LocalDateTime.parse(data + "T" + hora)).stream()
+		List<Aplicador> ocupados = agendaRepo.findByDataExameAndHoraExame(data,hora).stream()
 				.map(r -> r.getAplicador())
 				.filter(f -> f.getEspecialidade().equals(especialidade))
 				.collect(Collectors.toList());

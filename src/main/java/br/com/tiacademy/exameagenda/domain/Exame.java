@@ -1,6 +1,7 @@
 package br.com.tiacademy.exameagenda.domain;
 
 import java.io.Serializable;
+import java.sql.Time;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,9 +25,8 @@ public class Exame implements CrudDomain<Long>, Serializable {
     private String tipo;
     private String descricao;
     private String duracao;
-    private String hora_inicio;
-    private String hora_fim;
+    private Time horaInicio;
+    private Time horaFim;
     private Long disponibilidade;
-    private double valor;
 
 }
