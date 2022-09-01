@@ -6,12 +6,12 @@
 |/agendamento|/aplicador|/exame|/paciente|
 |/agendamento/lista|/aplicador/lista|/exame/lista|/paciente/lista|
 |/agendamento/{id}|/aplicador/{id}|/exame/{id}|/paciente/{id}|
-|/agendamento/horas/{idExame}/{data}|/aplicador/disponiveis/{hora}/{data}/{especialidade}
-|/agendamento/agendadata/{data}|
-|/agendamento/retiradadata/{data}|
+|/agendamento/horaslivres/{idExame}/{data}|/aplicador/disponiveis/{hora}/{data}/{especialidade}
+|/agendamento//afazer/{data}|
+|/agendamento/aretirar{data}|
 |**POST**|**POST**|**POST**|**POST**|
 |/agendamento|/aplicador|/exame|/paciente|
-|/agendamento/objeto|
+|/agendamento/inserir|
 |**PUT**|**PUT**|**PUT**|**PUT**|
 |/agendamento/{id}|/aplicador/{id}|/exame/{id}|/paciente/{id}|
 |**DELETE**|**DELETE**|**DELETE**|**DELETE**|
