@@ -3,6 +3,7 @@ package br.com.tiacademy.exameagenda.controller;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +24,10 @@ public class AplicadorController extends CrudController<Aplicador, AplicadorDTO,
     public AplicadorService apliService;
 
     @GetMapping("/disponiveis/{hora}/{data}/{especialidade}")
-    public ResponseEntity<List<Aplicador>> apliDiponiveis(@PathVariable("hora") Time hora,
+    public ResponseEntity<List<AplicadorDTO>> apliDiponiveis(@PathVariable("hora") Time hora,
             @PathVariable("data") Date data,
             @PathVariable("especialidade") String especialidade) {
-        List<Aplicador> agendas = apliService.apliDisponiveis(hora, data, especialidade);
+        List<AplicadorDTO> agendas = apliService.apliDisponiveis(hora, data, especialidade).stream().map(converter::entidadeParaDto).collect(Collectors.toList());
 
         return ResponseEntity.ok(agendas);
     }

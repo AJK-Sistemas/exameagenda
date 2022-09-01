@@ -23,8 +23,8 @@ public interface AgendamentoRepository extends CrudRepository<Agendamento, Long>
     @Query(value = "SELECT new br.com.tiacademy.exameagenda.dto.AgendaHorasDTO(g.horaExame, count(g.horaExame)) FROM Agendamento g WHERE g.dataExame =:datae and g.exame.id =:id group by g.horaExame")
     List<AgendaHorasDTO> porDataExameHorarios(@Param("datae") Date datae,@Param("id") Long id);
 
-    @Query("select a from Agendamento a where a.status =:status and a.dataRetirada=:data")
-    List<Agendamento> listagemDiaria(@Param("status") String status, @Param("data") Date data);
+    @Query("select a from Agendamento a where a.status <> 'Retirado' and a.status <> 'A Fazer' and a.dataRetirada=:data")
+    List<Agendamento> listagemDiaria(@Param("data") Date data);
     
     List<Agendamento> findByDataExameAndHoraExame(Date data, Time hora);
 
@@ -35,7 +35,7 @@ public interface AgendamentoRepository extends CrudRepository<Agendamento, Long>
     @Query("select a.id from Aplicador a where a.especialidade in (:tipo)")
     Long idAplicador(@Param("tipo") String tipo);
 
-    @Query("select a from Agendamento a where a.dataExame = (:data)")
+    @Query("select a from Agendamento a where a.dataExame =:data and a.status='A Fazer'")
     List<Agendamento> dataExame(@Param("data") Date data);
 
 }

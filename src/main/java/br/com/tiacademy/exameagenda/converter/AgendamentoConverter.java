@@ -35,6 +35,9 @@ public class AgendamentoConverter implements CrudConverter<Agendamento, Agendame
 
         var dto = new AgendamentoDTO();
         dto.setId(entidade.getId());
+        dto.setPacienteId(entidade.getPaciente().getId());
+        dto.setExameId(entidade.getExame().getId());
+        dto.setAplicadorId(entidade.getAplicador().getId());
         dto.setDataExame(entidade.getDataExame());
         dto.setHoraExame(entidade.getHoraExame());
         dto.setDataRetirada(entidade.getDataRetirada());

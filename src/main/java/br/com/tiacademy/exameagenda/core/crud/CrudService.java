@@ -41,7 +41,7 @@ public abstract class CrudService<T, ID> {
 		return repository.save(entidadeSalvar);
 	}
 
-	public void excluir(ID id) {
+	public void excluir(ID id) throws Exception{
 		T recuperado = porId(id);
 		if (Objects.isNull(recuperado)) {
 			throw new RuntimeException("Objeto não foi encontrado!");

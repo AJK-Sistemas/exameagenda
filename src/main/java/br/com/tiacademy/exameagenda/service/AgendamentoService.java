@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,14 @@ import br.com.tiacademy.exameagenda.repository.AgendamentoRepository;
 public class AgendamentoService extends CrudService<Agendamento, Long> {
 	@Override
 	protected Agendamento editarEntidade(Agendamento recuperado, Agendamento entidade) {
-		recuperado.setDataExame(entidade.getDataExame());
-		recuperado.setHoraExame(entidade.getHoraExame());
-		recuperado.setDataRetirada(entidade.getDataRetirada());
-		recuperado.setStatus(entidade.getStatus());
-		recuperado.setPaciente(entidade.getPaciente());
-		recuperado.setExame(entidade.getExame());
-		recuperado.setAplicador(entidade.getAplicador());
+		
+		if(entidade.getDataExame()!=null) recuperado.setDataExame(entidade.getDataExame());
+		if(entidade.getHoraExame()!=null) recuperado.setHoraExame(entidade.getHoraExame());
+		if(entidade.getDataRetirada()!=null) recuperado.setDataRetirada(entidade.getDataRetirada());
+		if(entidade.getStatus()!=null) recuperado.setStatus(entidade.getStatus());
+		if(entidade.getPaciente()!=null) recuperado.setPaciente(entidade.getPaciente());
+		if(entidade.getExame()!=null) recuperado.setExame(entidade.getExame());
+		if(entidade.getAplicador()!=null) recuperado.setAplicador(entidade.getAplicador());
 		return recuperado;
 	}
 
@@ -62,7 +64,7 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 			return horas;
 		Time horaInicio = exame.getHoraInicio();
 		Time horaFim = exame.getHoraFim();
-		Time intervalo = Time.valueOf(exame.getDuracao());
+		Time intervalo = exame.getDuracao();
 		Long disponibilidade = exame.getDisponibilidade();
 		List<Aplicador> aplicadores = aplicadorService.porEspecialidade(exame.getTipo());
 		int totalAplicadores = aplicadores.size();
@@ -94,9 +96,9 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 		return espelho;
 	}
 
-	public List<Agendamento> getListagemDiaria(String status, Date data) {
+	public List<Agendamento> getListagemDiaria(Date data) {
 
-		return agendamentoRepository.listagemDiaria(status, data);
+		return agendamentoRepository.listagemDiaria(data);
 	}
 
 	public Long idAplicador(String tipo){

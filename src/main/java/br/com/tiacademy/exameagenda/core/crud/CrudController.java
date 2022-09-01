@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javax.naming.NameNotFoundException;
+
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,7 +48,7 @@ public abstract class CrudController<T extends CrudDomain<ID>, D, ID> {
         var entidade = service.porId(id);
 
         if (Objects.isNull(entidade)) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException();
         }
 
         return ResponseEntity.ok(converter.entidadeParaDto(entidade));
@@ -67,18 +70,25 @@ public abstract class CrudController<T extends CrudDomain<ID>, D, ID> {
 
     @PutMapping("/{id}")
     public ResponseEntity<D> update(@PathVariable("id") ID id, @RequestBody D dto) {
+        try {
+            var novaEntidade = converter.dtoParaEntidade(dto);
+            var salvo = service.editar(id, novaEntidade);
 
-        var novaEntidade = converter.dtoParaEntidade(dto);
-        var salvo = service.editar(id, novaEntidade);
-
-        return ResponseEntity.ok(converter.entidadeParaDto(salvo));
+            return ResponseEntity.ok(converter.entidadeParaDto(salvo));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") ID id) {
-        service.excluir(id);
+        try {
+            service.excluir(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
 
-        return ResponseEntity.noContent().build();
     }
 
 }

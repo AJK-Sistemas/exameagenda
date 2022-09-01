@@ -3,10 +3,9 @@ package br.com.tiacademy.exameagenda.controller;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,46 +31,29 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
 
     @Autowired
     public AgendamentoService agService;
-    
+
     @Autowired
     public AplicadorService apService;
 
     @Autowired
     public ExameService exameService;
 
-    @GetMapping("/paginada")
-    public ResponseEntity<Page<Agendamento>> pagina(Pageable pageable) {
-
-        var listaPaginada = service.pagination(pageable);
-
-        return ResponseEntity.ok(listaPaginada);
-    }
-    
-    @GetMapping("/listar")
-    public ResponseEntity<List<Agendamento>> listar() {
-
-        var lista = agService.getAgendamento();
-
-        return ResponseEntity.ok(lista);
-    }
-
     @PostMapping("/inserir")
-    public ResponseEntity<Agendamento> create(@RequestBody AgendamentoDTO dto) {
+    public ResponseEntity<AgendamentoDTO> criar(@RequestBody AgendamentoDTO dto) {
 
         var especialidade = exameService.tipoExame(dto.getExameId());
-        
+
         var hora = dto.getHoraExame();
 
         var data = dto.getDataExame();
 
         var aplicador = apService.apliDisponiveis(hora, data, especialidade);
 
-        try{
-        dto.setAplicadorId(aplicador.get(0).getId());
-        }
-        catch(IndexOutOfBoundsException e){
+        try {
+            dto.setAplicadorId(aplicador.get(0).getId());
+        } catch (IndexOutOfBoundsException e) {
             throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Sem aplicador disponivel", e);
+                    HttpStatus.NOT_FOUND, "Sem aplicador disponivel", e);
         }
 
         dto.setStatus(Status.AFAZER.getStatus());
@@ -80,11 +62,13 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
 
         var salvo = service.criar(entidade);
 
+        var salvoDTO = converter.entidadeParaDto(salvo);
+
         ServletUriComponentsBuilder buider = ServletUriComponentsBuilder.fromCurrentRequest();
 
         var uri = buider.path("/{id}").buildAndExpand(salvo.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(salvo);
+        return ResponseEntity.created(uri).body(salvoDTO);
     }
 
     @GetMapping("/horaslivres/{id}/{data}")
@@ -96,7 +80,7 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
         return ResponseEntity.ok(horas);
     }
 
-    @GetMapping("/dataexame/{data}")
+    @GetMapping("/afazer/{data}")
     public ResponseEntity<List<Agendamento>> dataExame(@PathVariable("data") Date data) {
 
         var entidade = agService.getByDataExame(data);
@@ -104,12 +88,10 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
         return ResponseEntity.ok(entidade);
     }
 
-    @GetMapping("/{status}/{data}")
-    public ResponseEntity<List<Agendamento>> listagemDiaria(@PathVariable("status") String status,
-            @PathVariable("data") Date data) {
-
-        var agendamentos = agService.getListagemDiaria(status, data);
-
+    @GetMapping("/aretirar/{data}")
+    public ResponseEntity<List<AgendamentoDTO>> listagemDiaria(@PathVariable("data") Date data) {
+        var agendamentos = agService.getListagemDiaria(data).stream().map(converter::entidadeParaDto)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(agendamentos);
     }
 }

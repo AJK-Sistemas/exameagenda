@@ -14,7 +14,7 @@ public class ExameDTO implements Serializable {
     private Long id;
     private String tipo;
     private String descricao;
-    private String duracao;
+    private Time duracao;
     private Time horaInicio;
     private Time horaFim;
     private Long disponibilidade;
