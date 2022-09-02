@@ -22,6 +22,7 @@ public abstract class CrudService<T, ID> {
 	}
 
 	public T porId(ID id) {
+
 		return repository.findById(id).orElse(null);
 	}
 
@@ -31,9 +32,11 @@ public abstract class CrudService<T, ID> {
 	}
 
 	public T editar(ID id, T entidade) {
+
 		T recuperado = porId(id);
+
 		if (Objects.isNull(recuperado)) {
-			throw new RuntimeException("não foi encontrado");
+			throw new RuntimeException("Objeto não foi encontrado!");
 		}
 
 		T entidadeSalvar = editarEntidade(recuperado, entidade);
@@ -41,7 +44,8 @@ public abstract class CrudService<T, ID> {
 		return repository.save(entidadeSalvar);
 	}
 
-	public void excluir(ID id) throws Exception{
+	public void excluir(ID id) {
+
 		T recuperado = porId(id);
 		if (Objects.isNull(recuperado)) {
 			throw new RuntimeException("Objeto não foi encontrado!");

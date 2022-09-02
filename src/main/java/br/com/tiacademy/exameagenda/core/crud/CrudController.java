@@ -1,7 +1,6 @@
 package br.com.tiacademy.exameagenda.core.crud;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +43,9 @@ public abstract class CrudController<T extends CrudDomain<ID>, D, ID> {
     public ResponseEntity<D> porId(@PathVariable("id") ID id) {
         var entidade = service.porId(id);
 
-        if (Objects.isNull(entidade)) {
-            throw new NullPointerException();
-        }
+        // if (Objects.isNull(entidade)) {
+        // throw new NullPointerException();
+        // }
 
         return ResponseEntity.ok(converter.entidadeParaDto(entidade));
     }
@@ -67,24 +66,26 @@ public abstract class CrudController<T extends CrudDomain<ID>, D, ID> {
 
     @PutMapping("/{id}")
     public ResponseEntity<D> update(@PathVariable("id") ID id, @RequestBody D dto) {
-        try {
-            var novaEntidade = converter.dtoParaEntidade(dto);
-            var salvo = service.editar(id, novaEntidade);
+        // try {
+        var novaEntidade = converter.dtoParaEntidade(dto);
+        var salvo = service.editar(id, novaEntidade);
 
-            return ResponseEntity.ok(converter.entidadeParaDto(salvo));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(converter.entidadeParaDto(salvo));
+        // } catch (Exception e) {
+        // return ResponseEntity.notFound().build();
+        // }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") ID id) {
-        try {
-            service.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+
+        // try {
+        service.excluir(id);
+
+        return ResponseEntity.noContent().build();
+        // } catch (Exception e) {
+        // return ResponseEntity.notFound().build();
+        // }
 
     }
 
