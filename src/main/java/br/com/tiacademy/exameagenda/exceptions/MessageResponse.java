@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MessageResponse {
-    
-private Date currentDate;
-private String message;
+
+    private Date currentDate;
+    private String message;
+    private int code;
 
 }

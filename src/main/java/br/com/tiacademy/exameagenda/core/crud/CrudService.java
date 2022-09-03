@@ -23,7 +23,12 @@ public abstract class CrudService<T, ID> {
 
 	public T porId(ID id) {
 
-		return repository.findById(id).orElse(null);
+		var entidade = repository.findById(id).orElse(null);
+		if (Objects.isNull(entidade)) {
+			throw new RuntimeException("Objeto não foi encontrado!");
+		}
+
+		return entidade;
 	}
 
 	public T criar(T entidade) {

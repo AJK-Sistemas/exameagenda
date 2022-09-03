@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.tiacademy.exameagenda.core.crud.CrudController;
@@ -52,8 +50,8 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
         try {
             dto.setAplicadorId(aplicador.get(0).getId());
         } catch (IndexOutOfBoundsException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Sem aplicador disponivel", e);
+
+            throw new RuntimeException("Sem aplicador disponivel");
         }
 
         dto.setStatus(Status.AFAZER.getStatus());
@@ -90,6 +88,7 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
 
     @GetMapping("/aretirar/{data}")
     public ResponseEntity<List<AgendamentoDTO>> listagemDiaria(@PathVariable("data") Date data) {
+        
         var agendamentos = agService.getListagemDiaria(data).stream().map(converter::entidadeParaDto)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(agendamentos);
