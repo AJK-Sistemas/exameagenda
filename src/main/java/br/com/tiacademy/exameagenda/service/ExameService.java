@@ -1,5 +1,7 @@
 package br.com.tiacademy.exameagenda.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,10 @@ public class ExameService extends CrudService<Exame, Long> {
 
 	public String tipoExame(Long id){
 		return exameRepository.tipoExame(id);
+	}
+
+	public List<Exame> getTipoExame(String tipo){
+
+		return exameRepository.exame(tipo);
 	}
 }

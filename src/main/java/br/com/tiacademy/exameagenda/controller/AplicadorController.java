@@ -20,14 +20,17 @@ import br.com.tiacademy.exameagenda.service.AplicadorService;
 @RestController
 @RequestMapping("/aplicador")
 public class AplicadorController extends CrudController<Aplicador, AplicadorDTO, Long> {
+
     @Autowired
-    public AplicadorService apliService;
+    public AplicadorService aplicadorService;
 
     @GetMapping("/disponiveis/{hora}/{data}/{especialidade}")
     public ResponseEntity<List<AplicadorDTO>> apliDiponiveis(@PathVariable("hora") Time hora,
             @PathVariable("data") Date data,
             @PathVariable("especialidade") String especialidade) {
-        List<AplicadorDTO> agendas = apliService.apliDisponiveis(hora, data, especialidade).stream().map(converter::entidadeParaDto).collect(Collectors.toList());
+
+        List<AplicadorDTO> agendas = aplicadorService.apliDisponiveis(hora, data, especialidade).stream()
+                .map(converter::entidadeParaDto).collect(Collectors.toList());
 
         return ResponseEntity.ok(agendas);
     }

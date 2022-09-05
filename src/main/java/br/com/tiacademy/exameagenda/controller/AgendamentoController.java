@@ -28,10 +28,10 @@ import br.com.tiacademy.exameagenda.service.ExameService;
 public class AgendamentoController extends CrudController<Agendamento, AgendamentoDTO, Long> {
 
     @Autowired
-    public AgendamentoService agService;
+    public AgendamentoService agendamentoService;
 
     @Autowired
-    public AplicadorService apService;
+    public AplicadorService aplicadorService;
 
     @Autowired
     public ExameService exameService;
@@ -45,7 +45,7 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
 
         var data = dto.getDataExame();
 
-        var aplicador = apService.apliDisponiveis(hora, data, especialidade);
+        var aplicador = aplicadorService.apliDisponiveis(hora, data, especialidade);
 
         try {
             dto.setAplicadorId(aplicador.get(0).getId());
@@ -73,24 +73,26 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
     public ResponseEntity<List<Time>> espelhoHoras(@PathVariable("id") Long idExame,
             @PathVariable("data") Date data) {
 
-        List<Time> horas = agService.geraHoras(idExame, data);
+        List<Time> horas = agendamentoService.geraHoras(idExame, data);
 
         return ResponseEntity.ok(horas);
     }
 
     @GetMapping("/afazer/{data}")
-    public ResponseEntity<List<Agendamento>> dataExame(@PathVariable("data") Date data) {
+    public ResponseEntity<List<AgendamentoDTO>> aFazer(@PathVariable("data") Date data) {
 
-        var entidade = agService.getByDataExame(data);
+        var agendamentos = agendamentoService.getAfazer(data).stream().map(converter::entidadeParaDto)
+                .collect(Collectors.toList());
 
-        return ResponseEntity.ok(entidade);
+        return ResponseEntity.ok(agendamentos);
     }
 
     @GetMapping("/aretirar/{data}")
-    public ResponseEntity<List<AgendamentoDTO>> listagemDiaria(@PathVariable("data") Date data) {
-        
-        var agendamentos = agService.getListagemDiaria(data).stream().map(converter::entidadeParaDto)
+    public ResponseEntity<List<AgendamentoDTO>> aRetirar(@PathVariable("data") Date data) {
+
+        var agendamentos = agendamentoService.getAretirar(data).stream().map(converter::entidadeParaDto)
                 .collect(Collectors.toList());
+
         return ResponseEntity.ok(agendamentos);
     }
 }

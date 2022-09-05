@@ -16,11 +16,12 @@ import br.com.tiacademy.exameagenda.repository.AplicadorRepository;
 
 @Service
 public class AplicadorService extends CrudService<Aplicador, Long> {
+	
 	@Autowired
-	AplicadorRepository apliRepo;
+	AplicadorRepository aplicadorRepository;
 
 	@Autowired
-	AgendamentoRepository agendaRepo;
+	AgendamentoRepository agendamentoRepository;
 
 	@Override
 	protected Aplicador editarEntidade(Aplicador recuperado, Aplicador entidade) {
@@ -33,15 +34,15 @@ public class AplicadorService extends CrudService<Aplicador, Long> {
 	}
 
 	protected List<Aplicador> porEspecialidade(String especialidade) {
-		List<Aplicador> aplicadores = apliRepo.findByEspecialidade(especialidade);
+		List<Aplicador> aplicadores = aplicadorRepository.findByEspecialidade(especialidade);
 		return aplicadores;
 	}
 
 	public List<Aplicador> apliDisponiveis(Time hora, Date data, String especialidade) {
 
-		List<Aplicador> aplicadores = apliRepo.findByEspecialidade(especialidade);
+		List<Aplicador> aplicadores = aplicadorRepository.findByEspecialidade(especialidade);
 
-		List<Aplicador> ocupados = agendaRepo.findByDataExameAndHoraExame(data,hora).stream()
+		List<Aplicador> ocupados = agendamentoRepository.findByDataExameAndHoraExame(data,hora).stream()
 				.map(r -> r.getAplicador())
 				.filter(f -> f.getEspecialidade().equals(especialidade))
 				.collect(Collectors.toList());
