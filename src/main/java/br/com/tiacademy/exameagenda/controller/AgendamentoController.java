@@ -23,11 +23,9 @@ import br.com.tiacademy.exameagenda.enums.Status;
 import br.com.tiacademy.exameagenda.service.AgendamentoService;
 import br.com.tiacademy.exameagenda.service.AplicadorService;
 import br.com.tiacademy.exameagenda.service.ExameService;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/agendamento")
-@Slf4j
 public class AgendamentoController extends CrudController<Agendamento, AgendamentoDTO, Long> {
 
     @Autowired
@@ -60,7 +58,7 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
         dto.setStatus(Status.AFAZER.getStatus());
 
         var entidade = converter.dtoParaEntidade(dto);
-        log.info(entidade.toString());
+
         var salvo = service.criar(entidade);
 
         var salvoDTO = converter.entidadeParaDto(salvo);
