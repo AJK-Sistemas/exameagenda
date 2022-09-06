@@ -1,8 +1,7 @@
 package br.com.tiacademy.exameagenda.service;
 
-import java.sql.Date;
 import java.sql.Time;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +12,9 @@ import br.com.tiacademy.exameagenda.core.crud.CrudService;
 import br.com.tiacademy.exameagenda.domain.Aplicador;
 import br.com.tiacademy.exameagenda.repository.AgendamentoRepository;
 import br.com.tiacademy.exameagenda.repository.AplicadorRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class AplicadorService extends CrudService<Aplicador, Long> {
 	
@@ -38,7 +39,11 @@ public class AplicadorService extends CrudService<Aplicador, Long> {
 		return aplicadores;
 	}
 
-	public List<Aplicador> apliDisponiveis(Time hora, Date data, String especialidade) {
+	public int contaEspecialidades(String especialidade){
+		return aplicadorRepository.countByEspecialidade(especialidade);
+	}
+
+	public List<Aplicador> apliDisponiveis(Time hora, LocalDate data, String especialidade) {
 
 		List<Aplicador> aplicadores = aplicadorRepository.findByEspecialidade(especialidade);
 
@@ -49,7 +54,7 @@ public class AplicadorService extends CrudService<Aplicador, Long> {
 
 		List<Aplicador> disponiveis = aplicadores.stream().filter(a -> !ocupados.contains(a))
 				.collect(Collectors.toList());
-
+log.info(aplicadores.toString());
 		return disponiveis;
 	}
 }

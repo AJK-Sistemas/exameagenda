@@ -12,4 +12,5 @@ import br.com.tiacademy.exameagenda.core.crud.CrudRepository;
 public interface AplicadorRepository extends CrudRepository<Aplicador, Long> {
 
     List<Aplicador> findByEspecialidade(String especialidade);
+    int countByEspecialidade(String especialidade);
 }

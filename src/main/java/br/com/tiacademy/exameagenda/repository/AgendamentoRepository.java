@@ -1,7 +1,7 @@
 package br.com.tiacademy.exameagenda.repository;
 
 import java.sql.Time;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -25,22 +25,22 @@ public interface AgendamentoRepository extends CrudRepository<Agendamento, Long>
     // DATE_FORMAT(g.dataExame,'%Y-%m-%d') =:data and g.exame.id =:id group by
     // g.dataExame")
     @Query(value = "SELECT new br.com.tiacademy.exameagenda.dto.AgendaHorasDTO(g.horaExame, count(g.horaExame)) FROM Agendamento g WHERE g.dataExame =:data and g.exame.id =:id group by g.horaExame")
-    List<AgendaHorasDTO> porDataExameHorarios(@Param("data") Date data, @Param("id") Long id);
+    List<AgendaHorasDTO> porDataExameHorarios(@Param("data") LocalDate data, @Param("id") Long id);
 
     @Query("select a from Agendamento a where a.status <> 'Retirado' and a.status <> 'A Fazer' and a.dataRetirada=:data")
-    List<Agendamento> listagemDiaria(@Param("data") Date data);
+    List<Agendamento> listagemDiaria(@Param("data") LocalDate data);
 
-    List<Agendamento> findByDataExameAndHoraExame(Date data, Time hora);
+    List<Agendamento> findByDataExameAndHoraExame(LocalDate data, Time hora);
 
     @Query("select a.id from Aplicador a where a.especialidade = :tipo ")
     Long idAplicador(@Param("tipo") String tipo);
 
     @Query("select a from Agendamento a where a.dataExame = :data and a.status = 'A Fazer' ")
-    List<Agendamento> dataExame(@Param("data") Date data);
+    List<Agendamento> dataExame(@Param("data") LocalDate data);
 
     @Query("select a from Agendamento a where a.status = 'A Fazer' and a.dataRetirada = :data ")
-    List<Agendamento> aFazer(@Param("data") Date data);
+    List<Agendamento> aFazer(@Param("data") LocalDate data);
 
     @Query("select a from Agendamento a where a.status = 'Aguardando Retirada' and a.dataRetirada = :data ")
-    List<Agendamento> aRetirar(@Param("data") Date data);
+    List<Agendamento> aRetirar(@Param("data") LocalDate data);
 }

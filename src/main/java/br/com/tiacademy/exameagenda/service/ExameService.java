@@ -19,6 +19,8 @@ public class ExameService extends CrudService<Exame, Long> {
 	protected Exame editarEntidade(Exame recuperado, Exame entidade) {
 		recuperado.setTipo(entidade.getTipo());
 		recuperado.setDescricao(entidade.getDescricao());
+		recuperado.setHoraInicio(entidade.getHoraInicio());
+		recuperado.setHoraFim(entidade.getHoraFim());
 		recuperado.setDuracao(entidade.getDuracao());
 		recuperado.setDisponibilidade(entidade.getDisponibilidade());
 		return recuperado;

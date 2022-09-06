@@ -1,11 +1,12 @@
 package br.com.tiacademy.exameagenda.controller;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +23,11 @@ import br.com.tiacademy.exameagenda.enums.Status;
 import br.com.tiacademy.exameagenda.service.AgendamentoService;
 import br.com.tiacademy.exameagenda.service.AplicadorService;
 import br.com.tiacademy.exameagenda.service.ExameService;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/agendamento")
+@Slf4j
 public class AgendamentoController extends CrudController<Agendamento, AgendamentoDTO, Long> {
 
     @Autowired
@@ -44,6 +47,7 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
         var hora = dto.getHoraExame();
 
         var data = dto.getDataExame();
+        log.info(dto.toString());
 
         var aplicador = aplicadorService.apliDisponiveis(hora, data, especialidade);
 
@@ -71,7 +75,7 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
 
     @GetMapping("/horaslivres/{id}/{data}")
     public ResponseEntity<List<Time>> espelhoHoras(@PathVariable("id") Long idExame,
-            @PathVariable("data") Date data) {
+            @PathVariable("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
 
         List<Time> horas = agendamentoService.geraHoras(idExame, data);
 
@@ -79,7 +83,7 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
     }
 
     @GetMapping("/afazer/{data}")
-    public ResponseEntity<List<AgendamentoDTO>> aFazer(@PathVariable("data") Date data) {
+    public ResponseEntity<List<AgendamentoDTO>> aFazer(@PathVariable("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
 
         var agendamentos = agendamentoService.getAfazer(data).stream().map(converter::entidadeParaDto)
                 .collect(Collectors.toList());
@@ -88,7 +92,7 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
     }
 
     @GetMapping("/aretirar/{data}")
-    public ResponseEntity<List<AgendamentoDTO>> aRetirar(@PathVariable("data") Date data) {
+    public ResponseEntity<List<AgendamentoDTO>> aRetirar(@PathVariable("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
 
         var agendamentos = agendamentoService.getAretirar(data).stream().map(converter::entidadeParaDto)
                 .collect(Collectors.toList());

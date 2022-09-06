@@ -1,7 +1,7 @@
 package br.com.tiacademy.exameagenda.service;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -75,7 +75,7 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 	// return repository.save(entidade);
 	// }
 
-	public List<Time> geraHoras(Long id, Date data) {
+	public List<Time> geraHoras(Long id, LocalDate data) {
 
 		List<Time> horas = new ArrayList<>();
 		List<AgendaHorasDTO> horasAgendadas = agendamentoRepository.porDataExameHorarios(data, id);
@@ -108,6 +108,9 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 			Boolean retorno = true;
 			List<Boolean> bolList = new ArrayList<>();
 			bolList.add(retorno);
+			if (totalAplicadores==0){
+				bolList.set(0, false);
+			}
 			horasAgendadas.forEach(hora -> {
 				Long contagem = hora.getConta();
 				if (s.toString().equals(hora.getHora().toString())
@@ -122,12 +125,12 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 		return espelho;
 	}
 
-	public List<Agendamento> getAfazer(Date data) {
+	public List<Agendamento> getAfazer(LocalDate data) {
 
 		return agendamentoRepository.aFazer(data);
 	}
 
-	public List<Agendamento> getAretirar(Date data) {
+	public List<Agendamento> getAretirar(LocalDate data) {
 
 		return agendamentoRepository.aRetirar(data);
 	}
@@ -141,7 +144,7 @@ public class AgendamentoService extends CrudService<Agendamento, Long> {
 		return repository.findAll();
 	}
 
-	public List<Agendamento> getByDataExame(Date data) {
+	public List<Agendamento> getByDataExame(LocalDate data) {
 
 		return agendamentoRepository.dataExame(data);
 	}

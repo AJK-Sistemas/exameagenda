@@ -1,11 +1,12 @@
 package br.com.tiacademy.exameagenda.controller;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +26,8 @@ public class AplicadorController extends CrudController<Aplicador, AplicadorDTO,
     public AplicadorService aplicadorService;
 
     @GetMapping("/disponiveis/{hora}/{data}/{especialidade}")
-    public ResponseEntity<List<AplicadorDTO>> apliDiponiveis(@PathVariable("hora") Time hora,
-            @PathVariable("data") Date data,
+    public ResponseEntity<List<AplicadorDTO>> apliDisponiveis(@PathVariable("hora") Time hora,
+            @PathVariable("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data,
             @PathVariable("especialidade") String especialidade) {
 
         List<AplicadorDTO> agendas = aplicadorService.apliDisponiveis(hora, data, especialidade).stream()

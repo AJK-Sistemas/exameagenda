@@ -1,5 +1,7 @@
 package br.com.tiacademy.exameagenda.converter;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -54,15 +56,17 @@ public class AgendamentoConverter implements CrudConverter<Agendamento, Agendame
     public Agendamento dtoParaEntidade(AgendamentoDTO dto) {
 
         var agendamento = new Agendamento();
+        if(!Objects.isNull(dto.getId())){
         agendamento.setId(dto.getId());
+        }
         agendamento.setDataExame(dto.getDataExame());
         agendamento.setHoraExame(dto.getHoraExame());
         agendamento.setDataRetirada(dto.getDataRetirada());
         agendamento.setStatus(dto.getStatus());
 
-        agendamento.setPaciente(pacienteRepository.findById(dto.getPacienteId()).orElse(null));
-        agendamento.setExame(exameRepository.findById(dto.getExameId()).orElse(null));
-        agendamento.setAplicador(aplicadorRepository.findById(dto.getAplicadorId()).orElse(null));
+        if(!Objects.isNull(dto.getPacienteId())) agendamento.setPaciente(pacienteRepository.findById(dto.getPacienteId()).orElse(null));
+        if(!Objects.isNull(dto.getExameId())) agendamento.setExame(exameRepository.findById(dto.getExameId()).orElse(null));
+        if(!Objects.isNull(dto.getAplicador())) agendamento.setAplicador(aplicadorRepository.findById(dto.getAplicadorId()).orElse(null));
 
         return agendamento;
     }

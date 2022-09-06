@@ -1,8 +1,8 @@
 package br.com.tiacademy.exameagenda.domain;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,9 +25,9 @@ public class Agendamento implements CrudDomain<Long>, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date dataExame;
+    private LocalDate dataExame;
     private Time horaExame;
-    private Date dataRetirada;
+    private LocalDate dataRetirada;
     private String status;
 
     @ManyToOne
