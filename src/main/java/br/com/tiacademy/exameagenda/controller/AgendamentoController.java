@@ -47,7 +47,6 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
         var hora = dto.getHoraExame();
 
         var data = dto.getDataExame();
-        log.info(dto.toString());
 
         var aplicador = aplicadorService.apliDisponiveis(hora, data, especialidade);
 
@@ -61,7 +60,7 @@ public class AgendamentoController extends CrudController<Agendamento, Agendamen
         dto.setStatus(Status.AFAZER.getStatus());
 
         var entidade = converter.dtoParaEntidade(dto);
-
+        log.info(entidade.toString());
         var salvo = service.criar(entidade);
 
         var salvoDTO = converter.entidadeParaDto(salvo);

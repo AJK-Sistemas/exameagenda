@@ -66,7 +66,7 @@ public class AgendamentoConverter implements CrudConverter<Agendamento, Agendame
 
         if(!Objects.isNull(dto.getPacienteId())) agendamento.setPaciente(pacienteRepository.findById(dto.getPacienteId()).orElse(null));
         if(!Objects.isNull(dto.getExameId())) agendamento.setExame(exameRepository.findById(dto.getExameId()).orElse(null));
-        if(!Objects.isNull(dto.getAplicador())) agendamento.setAplicador(aplicadorRepository.findById(dto.getAplicadorId()).orElse(null));
+        if(!Objects.isNull(dto.getAplicadorId())) agendamento.setAplicador(aplicadorRepository.findById(dto.getAplicadorId()).orElse(null));
 
         return agendamento;
     }

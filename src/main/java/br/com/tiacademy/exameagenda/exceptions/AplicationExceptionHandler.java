@@ -1,6 +1,7 @@
 package br.com.tiacademy.exameagenda.exceptions;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,14 @@ public class AplicationExceptionHandler extends ResponseEntityExceptionHandler {
         int code;
 
         if (e.getClass() == org.springframework.dao.DataIntegrityViolationException.class) {
-            String errorDescription = e.getCause().getCause().getLocalizedMessage();
+            String errorDescription;
+            if (!Objects.isNull(e.getCause().getCause())) {
+                errorDescription = e.getCause().getCause().getLocalizedMessage();
+            } else if(!Objects.isNull(e.getCause())){
+                errorDescription = e.getCause().getLocalizedMessage();
+            } else {
+                errorDescription = e.getLocalizedMessage();
+            }
 
             if (errorDescription == null) {
                 errorDescription = e.toString();
