@@ -35,12 +35,12 @@ public interface AgendamentoRepository extends CrudRepository<Agendamento, Long>
     @Query("select a.id from Aplicador a where a.especialidade = :tipo ")
     Long idAplicador(@Param("tipo") String tipo);
 
-    @Query("select a from Agendamento a where a.dataExame = :data and a.status = 'A Fazer' ")
+    @Query("select a from Agendamento a where a.dataExame =:data and a.status = 'A Fazer' ")
     List<Agendamento> dataExame(@Param("data") LocalDate data);
 
-    @Query("select a from Agendamento a where a.status = 'A Fazer' and a.dataRetirada = :data ")
+    @Query("select a from Agendamento a where a.status = 'A Fazer' and a.dataExame =:data ")
     List<Agendamento> aFazer(@Param("data") LocalDate data);
 
-    @Query("select a from Agendamento a where a.status = 'Aguardando Retirada' and a.dataRetirada = :data ")
+    @Query("select a from Agendamento a where a.status = 'Aguardando Retirada' and a.dataRetirada =:data ")
     List<Agendamento> aRetirar(@Param("data") LocalDate data);
 }
